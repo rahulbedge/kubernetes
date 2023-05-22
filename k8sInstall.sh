@@ -28,3 +28,5 @@ sudo apt update -y
 sudo apt install -y kubeadm kubectl kubelet
 
 sudo kubeadm init --control-plane-endpoint=192.168.1.122 --apiserver-advertise-address=192.168.1.122 --pod-network-cidr=10.244.0.0/16
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/tigera-operator.yaml
+kubectl create -f ./custom-resource
