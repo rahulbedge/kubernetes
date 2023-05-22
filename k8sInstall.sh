@@ -28,5 +28,11 @@ sudo apt update -y
 sudo apt install -y kubeadm kubectl kubelet
 
 sudo kubeadm init --control-plane-endpoint=192.168.1.122 --apiserver-advertise-address=192.168.1.122 --pod-network-cidr=10.244.0.0/16
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config    
+
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/tigera-operator.yaml
 kubectl create -f ./custom-resource
+watch kubectl get pods -n calico-system
