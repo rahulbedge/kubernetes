@@ -27,5 +27,4 @@ echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://a
 sudo apt update -y
 sudo apt install -y kubeadm kubectl kubelet
 
-sudo kubeadm init
-sudo scp ./admin.conf root@192.168.1.10:/root/admin.co
+sudo kubeadm init --control-plane-endpoint=192.168.1.122 --apiserver-advertise-address=192.168.1.122 --pod-network-cidr=10.244.0.0/16
