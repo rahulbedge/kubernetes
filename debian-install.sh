@@ -48,4 +48,4 @@ curl https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/ca
 kubectl apply -f calico.yaml
 
 cd /root
-rm -rf *
+rm -rf go/ installer/
