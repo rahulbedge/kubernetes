@@ -18,11 +18,11 @@ docker run hello-world
 mkdir -p /root/installer/cri
 cd /root/installer/cri
 wget https://go.dev/dl/go1.20.4.linux-amd64.tar.gz
-tar -C . -xzf go1.20.4.linux-amd64.tar.gz
+tar -C /root/installer/cri -xzf go1.20.4.linux-amd64.tar.gz
 git clone https://github.com/Mirantis/cri-dockerd.git
 cd cri-dockerd
 mkdir bin
-../go/bin/go build -o bin/cri-dockerd
+/root/installer/cri/go/bin/go build -o bin/cri-dockerd
 mkdir -p /usr/local/bin
 install -o root -g root -m 0755 bin/cri-dockerd /usr/local/bin/cri-dockerd
 cp -a packaging/systemd/* /etc/systemd/system
