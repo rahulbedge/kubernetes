@@ -15,7 +15,7 @@ docker run hello-world
 
 # Run these commands as root
 ###Install GO###
-mkdir /root/installer/cri
+mkdir -p /root/installer/cri
 cd /root/installer/cri
 wget https://go.dev/dl/go1.20.4.linux-amd64.tar.gz
 tar -C . -xzf go1.20.4.linux-amd64.tar.gz
