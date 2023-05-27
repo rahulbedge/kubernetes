@@ -40,3 +40,12 @@ apt install -y kubeadm kubectl kubelet
 
 kubeadm init --control-plane-endpoint=172.168.1.214 --apiserver-advertise-address=172.168.1.214 --pod-network-cidr=172.17.0.1/16 --cri-socket=unix:///var/run/cri-dockerd.sock --v=5
 
+mkdir -p $HOME/.kube
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+chown $(id -u):$(id -g) $HOME/.kube/config
+
+curl https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/calico.yaml -O
+kubectl apply -f calico.yaml
+
+cd /root
+rm -rf *
