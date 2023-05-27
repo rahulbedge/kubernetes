@@ -32,3 +32,11 @@ systemctl enable cri-docker.service
 systemctl enable --now cri-docker.socket
 cd /root/installer
 rm -rf ./cri
+
+curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://dl.k8s.io/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+apt update -y
+apt install -y kubeadm kubectl kubelet
+
+kubeadm init --control-plane-endpoint=172.168.1.214 --apiserver-advertise-address=172.168.1.214 --pod-network-cidr=172.17.0.1/16 --cri-socket=unix:///var/run/cri-dockerd.sock --v=5
+
