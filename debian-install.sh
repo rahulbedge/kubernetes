@@ -49,3 +49,4 @@ kubectl apply -f calico.yaml
 
 cd /root
 rm -rf go/ installer/
+
