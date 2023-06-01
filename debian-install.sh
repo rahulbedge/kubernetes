@@ -38,5 +38,4 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 apt update -y
 apt install -y kubeadm kubectl kubelet
 
-kubeadm init --control-plane-endpoint=172.168.1.214 --apiserver-advertise-address=172.168.1.214 --pod-network-cidr=172.17.0.1/16 --cri-socket=unix:///var/run/cri-dockerd.sock --v=5
-
+kubeadm init --apiserver-advertise-address=172.168.1.12 --pod-network-cidr=10.244.0.0/16 --cri-socket=unix:///var/run/cri-dockerd.sock --v=5
