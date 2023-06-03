@@ -67,7 +67,7 @@ kubectl apply -f - -n kube-system
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml --dry-run=client
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml
 
-kubectl -n metallb-system wait pod --for=condition=Ready -l app=metallb,component=speaker --timeout=180s
+kubectl wait --namespace metallb-system --for=condition=ready pod --selector=component=controller --timeout=180s
 
 kubectl apply -f ./metallb-config.yaml --dry-run=client
 kubectl apply -f ./metallb-config.yaml
