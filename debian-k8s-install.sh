@@ -1,5 +1,5 @@
 clear
-apt autoremove iptables
+apt autoremove iptables -y
 apt update -y && sudo apt dist-upgrade -y
 swapoff -a 
 apt-get install ca-certificates curl gnupg -y
