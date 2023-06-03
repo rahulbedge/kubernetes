@@ -49,6 +49,7 @@ curl https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/ca
 kubectl apply -f calico.yaml --dry-run=client
 kubectl apply -f calico.yaml
 
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 
 cd /root
 rm -rf go/ installer/
