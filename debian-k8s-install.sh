@@ -1,4 +1,5 @@
 clear
+apt autoremove iptables
 apt update -y && sudo apt dist-upgrade -y
 swapoff -a 
 apt-get install ca-certificates curl gnupg -y
@@ -45,7 +46,25 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
 
 curl https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/calico.yaml -O
+kubectl apply -f calico.yaml --dry-run=client
 kubectl apply -f calico.yaml
+
 
 cd /root
 rm -rf go/ installer/
+
+# see what changes would be made, returns nonzero returncode if different
+kubectl get configmap kube-proxy -n kube-system -o yaml | \
+sed -e "s/strictARP: false/strictARP: true/" | \
+kubectl diff -f - -n kube-system
+
+# actually apply the changes, returns nonzero returncode on errors only
+kubectl get configmap kube-proxy -n kube-system -o yaml | \
+sed -e "s/strictARP: false/strictARP: true/" | \
+kubectl apply -f - -n kube-system
+
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml --dry-run=client
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml
+
+kubectl apply -f ./metallb-config.yaml --dry-run=client
+kubectl apply -f ./metallb-config.yaml
